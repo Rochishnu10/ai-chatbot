@@ -148,6 +148,7 @@ export function useChat() {
       const chatInput: ChatInput = {
         message: text,
         tone: settings.tone,
+        history: messages,
       };
 
       if (attachment && attachment.type.startsWith('image/')) {
