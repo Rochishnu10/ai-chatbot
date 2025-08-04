@@ -44,7 +44,8 @@ const prompt = ai.definePrompt({
   
   This is the conversation history:
   {{#each history}}
-  {{#if (this.role == 'user')}}User{{else}}Nova{{/if}}: {{{this.content}}}
+  {{#if_eq this.role "user"}}User: {{{this.content}}}{{/if_eq}}
+  {{#if_eq this.role "assistant"}}Nova: {{{this.content}}}{{/if_eq}}
   {{/each}}
 
   {{#if photoDataUri}}
@@ -54,6 +55,17 @@ const prompt = ai.definePrompt({
 
   User's message: {{{message}}}
   Your response:`,
+  template: {
+    helpers: {
+      if_eq: (a, b, options) => {
+        if (a === b) {
+          return options.fn(this);
+        } else {
+          return options.inverse(this);
+        }
+      },
+    },
+  },
 });
 
 const chatFlow = ai.defineFlow(
