@@ -91,7 +91,7 @@ export function ChatSidebar({
               {isSidebarOpen && <span>User Settings</span>}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-72 mb-2" side="right" align="end">
+          <DropdownMenuContent className="w-64 mb-2" side="right" align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuSub>
