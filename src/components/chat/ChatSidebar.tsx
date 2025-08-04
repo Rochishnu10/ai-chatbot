@@ -76,7 +76,7 @@ export function ChatSidebar({
           {isSidebarOpen ? <PanelLeft /> : <PanelRight />}
         </Button>
       </div>
-      <Button variant="outline" className={cn('w-full rounded-lg', !isSidebarOpen && 'justify-center')}>
+      <Button variant="outline" className={cn('w-full rounded-full', !isSidebarOpen && 'justify-center')}>
         <MessageSquarePlus />
         {isSidebarOpen && <span>New Chat</span>}
       </Button>
