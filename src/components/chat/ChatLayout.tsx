@@ -15,10 +15,10 @@ export default function ChatLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="flex h-screen w-full flex-col bg-background">
+    <div className="flex h-screen w-full flex-col bg-transparent">
       <ChatHeader />
       <main className="flex flex-1 overflow-hidden">
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col bg-background/80 backdrop-blur-sm">
           <div className="flex-1 overflow-y-auto">
             <ChatMessages messages={messages} isLoading={isLoading} />
           </div>
