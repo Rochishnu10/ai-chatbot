@@ -92,7 +92,7 @@ export function ChatSidebar({
       <div className="mt-auto mb-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className={cn("w-full justify-start gap-2", !isSidebarOpen && "justify-center")}>
+            <Button variant="ghost" className={cn("w-full justify-start gap-2 rounded-full", !isSidebarOpen && "justify-center")}>
               <User />
               {isSidebarOpen && <span>User Settings</span>}
             </Button>
