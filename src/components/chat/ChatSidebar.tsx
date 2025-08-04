@@ -14,8 +14,8 @@ import {
   MessageSquarePlus,
   SlidersHorizontal,
   Palette,
-  ChevronLeft,
-  ChevronRight,
+  PanelLeft,
+  PanelRight,
   User,
   Settings,
 } from 'lucide-react';
@@ -41,6 +41,7 @@ interface ChatSidebarProps {
   settings: ChatSettings;
   onSettingsChange: (settings: Partial<ChatSettings>) => void;
   isSidebarOpen: boolean;
+  onSidebarToggle: () => void;
   className?: string;
 }
 
@@ -48,6 +49,7 @@ export function ChatSidebar({
   settings,
   onSettingsChange,
   isSidebarOpen,
+  onSidebarToggle,
   className,
 }: ChatSidebarProps) {
   const { theme, setTheme } = useTheme();
@@ -70,10 +72,14 @@ export function ChatSidebar({
     >
       <div className="flex items-center justify-between">
         {isSidebarOpen && <h2 className="text-lg font-headline">History</h2>}
-        <Button variant="ghost" size="icon">
-          <MessageSquarePlus />
+        <Button variant="ghost" size="icon" onClick={onSidebarToggle}>
+          {isSidebarOpen ? <PanelLeft /> : <PanelRight />}
         </Button>
       </div>
+      <Button variant="outline" className={cn('w-full', !isSidebarOpen && 'justify-center')}>
+        <MessageSquarePlus />
+        {isSidebarOpen && <span>New Chat</span>}
+      </Button>
       <ScrollArea className="flex-1">
         <div className="space-y-2">
           {isSidebarOpen && (
