@@ -161,20 +161,19 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
                 </AccordionTrigger>
                 <AccordionContent>
                   <CardContent className="space-y-4 pt-4">
-                    <div className="p-4 flex justify-between items-center">
-                      <Label htmlFor="dark-mode" className="flex items-center gap-2">
-                          {theme === 'dark' ? (
-                              <Moon className="h-5 w-5" />
-                          ) : (
-                              <Sun className="h-5 w-5" />
-                          )}
-                          {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
-                      </Label>
-                      <Switch
-                          id="dark-mode"
-                          checked={theme === 'dark'}
-                          onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                      />
+                     <div className="space-y-2">
+                      <Label htmlFor="theme">Theme</Label>
+                       <Select value={theme} onValueChange={setTheme}>
+                        <SelectTrigger id="theme">
+                          <SelectValue placeholder="Select theme" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="light">Light</SelectItem>
+                          <SelectItem value="dark">Dark</SelectItem>
+                          <SelectItem value="theme-sunrise">Sunrise</SelectItem>
+                          <SelectItem value="theme-ocean">Ocean</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
                   </CardContent>
                 </AccordionContent>
