@@ -1,18 +1,10 @@
 
 'use client';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
 import {
   MessageSquarePlus,
-  SlidersHorizontal,
   Palette,
   PanelLeft,
   PanelRight,
@@ -30,6 +22,8 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
@@ -123,21 +117,24 @@ export function ChatSidebar({
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
-                  <DropdownMenuItem
-                    onClick={() => onSettingsChange({ tone: 'formal' })}
+                  <DropdownMenuRadioGroup
+                    value={settings.tone}
+                    onValueChange={(value) =>
+                      onSettingsChange({
+                        tone: value as 'formal' | 'informal' | 'humorous',
+                      })
+                    }
                   >
-                    Formal
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => onSettingsChange({ tone: 'informal' })}
-                  >
-                    Informal
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => onSettingsChange({ tone: 'humorous' })}
-                  >
-                    Humorous
-                  </DropdownMenuItem>
+                    <DropdownMenuRadioItem value="formal">
+                      Formal
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="informal">
+                      Informal
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="humorous">
+                      Humorous
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
