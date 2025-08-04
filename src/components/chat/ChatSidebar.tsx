@@ -43,7 +43,7 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
   }
 
   return (
-    <aside className="w-full md:w-80 flex flex-col h-full border-l bg-background/80 backdrop-blur-sm">
+    <aside className="w-full md:w-80 flex flex-col h-full border-r bg-background/80 backdrop-blur-sm">
       <ScrollArea className="flex-1">
         <div className="p-4 space-y-6">
           <Accordion type="single" collapsible defaultValue="item-1">

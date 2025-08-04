@@ -16,14 +16,8 @@ export default function ChatLayout() {
 
   return (
     <div className="flex h-screen w-full flex-col bg-transparent">
-      <ChatHeader />
+      <ChatHeader onSidebarToggle={() => setIsSidebarOpen(!isSidebarOpen)} isSidebarOpen={isSidebarOpen}/>
       <main className="flex flex-1 overflow-hidden">
-        <div className="flex flex-1 flex-col bg-background/80 backdrop-blur-sm">
-          <div className="flex-1 overflow-y-auto">
-            <ChatMessages messages={messages} isLoading={isLoading} />
-          </div>
-          <ChatInput onSend={handleSend} isLoading={isLoading} />
-        </div>
         <div
           className={cn(
             'transition-all duration-300 ease-in-out',
@@ -38,10 +32,11 @@ export default function ChatLayout() {
             />
           )}
         </div>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:block">
-           <Button variant="ghost" size="icon" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-             {isSidebarOpen ? <PanelRightClose /> : <PanelLeftClose />}
-           </Button>
+        <div className="flex flex-1 flex-col bg-background/80 backdrop-blur-sm">
+          <div className="flex-1 overflow-y-auto">
+            <ChatMessages messages={messages} isLoading={isLoading} />
+          </div>
+          <ChatInput onSend={handleSend} isLoading={isLoading} />
         </div>
       </main>
     </div>
