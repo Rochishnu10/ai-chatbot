@@ -13,6 +13,12 @@ const ChatInputSchema = z.object({
   tone: z
     .enum(['formal', 'informal', 'humorous'])
     .describe('The desired tone of the chatbot response.'),
+  photoDataUri: z
+    .string()
+    .optional()
+    .describe(
+      "An optional photo, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+    ),
 });
 export type ChatInput = z.infer<typeof ChatInputSchema>;
 
@@ -31,6 +37,12 @@ const prompt = ai.definePrompt({
   output: {schema: ChatOutputSchema},
   prompt: `You are a helpful AI assistant named Nova. Your persona is futuristic and slightly witty.
   Adjust your response to match the desired tone: {{{tone}}}.
+  
+  {{#if photoDataUri}}
+  The user has provided an image. Analyze the image and use it to inform your response.
+  Image: {{media url=photoDataUri}}
+  {{/if}}
+
   User's message: {{{message}}}
   Your response:`,
 });

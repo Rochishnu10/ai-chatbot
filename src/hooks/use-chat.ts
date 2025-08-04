@@ -40,14 +40,25 @@ export function useChat() {
     setIsLoading(true);
 
     try {
-      // TODO: Handle attachment in the AI flow
-      if (attachment) {
-        console.log('Sending attachment:', attachment.name);
-      }
       const chatInput: ChatInput = {
         message: text,
         tone: settings.tone,
       };
+
+      if (attachment) {
+        if (attachment.type.startsWith('image/')) {
+          chatInput.photoDataUri = attachment.data;
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'Unsupported File Type',
+            description: 'Currently, only image files can be sent to the AI.',
+          });
+          // To keep the UI consistent, we'll continue, but the AI won't get the file.
+          // A more robust solution might prevent sending or clear the attachment.
+        }
+      }
+      
       const chatResult = await chat(chatInput);
 
       const botMessage: Message = {
