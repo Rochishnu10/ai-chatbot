@@ -1,3 +1,4 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,7 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Archive, FileUp, SlidersHorizontal, Moon, Sun } from 'lucide-react';
+import { Archive, FileUp, SlidersHorizontal, Moon, Sun, Palette } from 'lucide-react';
 import type { ChatSettings } from '@/hooks/use-chat';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -146,20 +147,40 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
         </div>
       </ScrollArea>
       <Separator />
-      <div className="p-4 flex justify-between items-center">
-        <Label htmlFor="dark-mode" className="flex items-center gap-2">
-          {theme === 'dark' ? (
-            <Moon className="h-5 w-5" />
-          ) : (
-            <Sun className="h-5 w-5" />
-          )}
-          {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
-        </Label>
-        <Switch
-          id="dark-mode"
-          checked={theme === 'dark'}
-          onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        />
+      <div className='p-4'>
+        <Accordion type="single" collapsible>
+            <AccordionItem value="item-1" className="border-none">
+              <Card className="bg-card/50">
+                <AccordionTrigger className="p-6 pb-2 data-[state=open]:border-b">
+                  <CardHeader className="p-0 flex flex-row items-center justify-between w-full">
+                    <CardTitle className="text-lg font-headline flex items-center gap-2">
+                      <Palette className="h-5 w-5" />
+                       Appearance
+                    </CardTitle>
+                  </CardHeader>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <CardContent className="space-y-4 pt-4">
+                    <div className="p-4 flex justify-between items-center">
+                      <Label htmlFor="dark-mode" className="flex items-center gap-2">
+                          {theme === 'dark' ? (
+                              <Moon className="h-5 w-5" />
+                          ) : (
+                              <Sun className="h-5 w-5" />
+                          )}
+                          {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
+                      </Label>
+                      <Switch
+                          id="dark-mode"
+                          checked={theme === 'dark'}
+                          onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                      />
+                    </div>
+                  </CardContent>
+                </AccordionContent>
+              </Card>
+            </AccordionItem>
+          </Accordion>
       </div>
     </aside>
   );
