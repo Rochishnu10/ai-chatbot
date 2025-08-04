@@ -43,7 +43,7 @@ export function ChatMessage({ message, isLoading }: ChatMessageProps) {
       >
         <div
           className={cn(
-            'inline-block rounded-lg px-4 py-2',
+            'inline-block rounded-2xl px-4 py-2',
             isBot
               ? 'bg-secondary text-secondary-foreground'
               : 'bg-primary text-primary-foreground'
