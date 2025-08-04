@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import type { Message } from '@/hooks/use-chat';
 import { Bot } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface ChatMessageProps {
   message: Message;
@@ -11,11 +12,13 @@ interface ChatMessageProps {
 export function ChatMessage({ message, isLoading }: ChatMessageProps) {
   const isBot = message.role === 'assistant';
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
       className={cn(
         'group relative flex items-start -ml-2 p-2 rounded-lg',
-        { 'justify-end flex-row-reverse': !isBot },
-        'animate-fade-in-up'
+        { 'justify-end flex-row-reverse': !isBot }
       )}
     >
       <Avatar
@@ -47,6 +50,6 @@ export function ChatMessage({ message, isLoading }: ChatMessageProps) {
           <p className="text-sm whitespace-pre-wrap">{message.content}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
