@@ -1,15 +1,13 @@
 
 'use client';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Label } from '@/components/ui/label';
 import {
   MessageSquarePlus,
   Palette,
   PanelLeft,
   PanelRight,
-  User,
   Settings,
+  User,
 } from 'lucide-react';
 import type { ChatSettings } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -91,7 +89,7 @@ export function ChatSidebar({
               {isSidebarOpen && <span>User Settings</span>}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-64 mb-2" side="right" align="end">
+          <DropdownMenuContent className="w-64 mb-2" sideOffset={8} side="top" align="start">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuSub>
