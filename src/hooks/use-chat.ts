@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { adjustTone, type AdjustToneInput } from '@/ai/flows/adjust-tone';
+import { chat, type ChatInput } from '@/ai/flows/chat';
 
 export interface Message {
   role: 'user' | 'assistant';
@@ -13,17 +14,6 @@ export interface ChatSettings {
   language: string;
   responseLength: number;
 }
-
-const mockResponses = {
-  default:
-    "I'm processing your request. Based on my analysis, here are the key points I've identified. Let me know if you need more detail.",
-  formal:
-    'Upon careful consideration of your inquiry, I have synthesized the relevant information. The following summary outlines the principal findings. Should you require further elucidation, please do not hesitate to ask.',
-  informal:
-    "Hey there! I've had a look at what you sent over. Here's the gist of it. Just give me a shout if you want to dig deeper on anything!",
-  humorous:
-    "Alright, I've put on my thinking cap... which is virtual and very stylish, by the way. After sifting through the data, I've got the scoop for you! Ready for the punchline?",
-};
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -45,24 +35,24 @@ export function useChat() {
     setIsLoading(true);
 
     try {
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const chatInput: ChatInput = { message: text };
+      const chatResult = await chat(chatInput);
 
-      const input: AdjustToneInput = {
-        originalResponse: mockResponses.default,
+      const toneInput: AdjustToneInput = {
+        originalResponse: chatResult.response,
         tone: settings.tone,
       };
-
-      const result = await adjustTone(input);
+      
+      const toneResult = await adjustTone(toneInput);
 
       const botMessage: Message = {
         role: 'assistant',
-        content: result.adjustedResponse,
+        content: toneResult.adjustedResponse,
       };
 
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      console.error('Error adjusting tone:', error);
+      console.error('Error getting AI response:', error);
       toast({
         variant: 'destructive',
         title: 'Error',
