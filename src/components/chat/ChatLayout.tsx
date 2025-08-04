@@ -10,6 +10,9 @@ import { ChatSidebar } from './ChatSidebar';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '../ui/button';
@@ -22,7 +25,7 @@ export default function ChatLayout() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-[100vh] w-full bg-transparent overflow-hidden">
+    <div className="flex h-dvh w-full bg-transparent overflow-hidden">
       <ChatSidebar
         isSidebarOpen={isSidebarOpen}
         onSidebarToggle={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -42,13 +45,19 @@ export default function ChatLayout() {
                         <Menu />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="p-0 w-full max-w-xs">
+                <SheetContent side="left" className="p-0 w-full max-w-xs flex flex-col">
+                    <SheetHeader className='p-4 pb-0'>
+                      <SheetTitle className='sr-only'>Sidebar</SheetTitle>
+                      <SheetDescription className='sr-only'>
+                        Chat history, settings, and new chat options.
+                      </SheetDescription>
+                    </SheetHeader>
                     <ChatSidebar
                         isSidebarOpen={true}
                         onSidebarToggle={() => setIsMobileSidebarOpen(false)}
                         settings={settings}
                         onSettingsChange={handleSettingsChange}
-                        className='w-full'
+                        className='w-full border-none'
                     />
                 </SheetContent>
             </Sheet>

@@ -60,7 +60,7 @@ export function ChatSidebar({
   return (
     <aside
       className={cn(
-        'flex flex-col h-full border-r bg-background/80 backdrop-blur-sm p-4 gap-4',
+        'flex flex-col h-full border-r bg-transparent backdrop-blur-sm p-4 gap-4',
         className
       )}
     >
@@ -83,7 +83,7 @@ export function ChatSidebar({
           )}
         </div>
       </ScrollArea>
-      <div className="mt-auto mb-4">
+      <div className="mt-auto">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className={cn("w-full justify-start gap-2 rounded-full", !isSidebarOpen && "justify-center")}>
