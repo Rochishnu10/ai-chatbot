@@ -48,7 +48,6 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             size="icon"
             variant="ghost"
             className="rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-            disabled
           >
             <Smile className="h-5 w-5" />
             <span className="sr-only">Emoji</span>
@@ -57,7 +56,6 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             size="icon"
             variant="ghost"
             className="rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-            disabled
           >
             <Paperclip className="h-5 w-5" />
             <span className="sr-only">Attach file</span>
@@ -66,7 +64,6 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             size="icon"
             variant="ghost"
             className="rounded-full hover:bg-primary/10 hover:text-primary transition-all"
-            disabled
           >
             <Mic className="h-5 w-5" />
             <span className="sr-only">Voice input</span>
