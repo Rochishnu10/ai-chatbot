@@ -22,6 +22,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 interface ChatSidebarProps {
   settings: ChatSettings;
@@ -30,6 +31,15 @@ interface ChatSidebarProps {
 
 export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
   const { theme, setTheme } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <aside className="w-full md:w-80 flex flex-col h-full border-l bg-background/80 backdrop-blur-sm">
