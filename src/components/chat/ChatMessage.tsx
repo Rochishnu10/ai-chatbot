@@ -5,8 +5,7 @@ import type { Message } from '@/hooks/use-chat';
 import { motion } from 'framer-motion';
 import { NovaLogo } from './NovaLogo';
 import { TypingIndicator } from './TypingIndicator';
-import { File as FileIcon, Image as ImageIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { File as FileIcon, User } from 'lucide-react';
 
 interface ChatMessageProps {
   message: Message;
@@ -56,7 +55,7 @@ export function ChatMessage({ message, isLoading }: ChatMessageProps) {
           alt={isBot ? 'Bot' : 'User'}
         />
         <AvatarFallback>
-          {isBot ? <NovaLogo className="h-5 w-5" /> : 'U'}
+          {isBot ? <NovaLogo className="h-5 w-5" /> : <User className="h-5 w-5" />}
         </AvatarFallback>
       </Avatar>
       <div
