@@ -168,7 +168,7 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
                           <SelectValue placeholder="Select theme" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="light">Emerald</SelectItem>
+                          <SelectItem value="light">Light</SelectItem>
                           <SelectItem value="dark">Dark</SelectItem>
                           <SelectItem value="theme-sunrise">Sunrise</SelectItem>
                           <SelectItem value="theme-ocean">Ocean</SelectItem>
@@ -193,5 +193,3 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
     </aside>
   );
 }
-
-    
