@@ -168,10 +168,9 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
                           <SelectValue placeholder="Select theme" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="light">Light</SelectItem>
+                          <SelectItem value="light">Ocean</SelectItem>
                           <SelectItem value="dark">Dark</SelectItem>
                           <SelectItem value="theme-sunrise">Sunrise</SelectItem>
-                          <SelectItem value="theme-ocean">Ocean</SelectItem>
                           <SelectItem value="theme-crimson">Crimson</SelectItem>
                           <SelectItem value="theme-emerald">Emerald</SelectItem>
                           <SelectItem value="theme-cyberpunk">Cyberpunk</SelectItem>
@@ -194,3 +193,5 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
     </aside>
   );
 }
+
+    

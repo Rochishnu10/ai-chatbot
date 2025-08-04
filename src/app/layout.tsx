@@ -36,7 +36,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
           themes={[
@@ -63,3 +63,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    
