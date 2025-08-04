@@ -1,12 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { ReactNode } from 'react';
 import { NovaLogo } from './NovaLogo';
 
-export function ChatHeader() {
+export function ChatHeader({children}: {children?: ReactNode}) {
   return (
     <header className="flex h-16 items-center justify-between border-b px-4 shrink-0">
       <div className="flex items-center gap-3">
+        {children}
         <NovaLogo />
         <h1 className="text-lg font-headline font-semibold">NovaChat</h1>
       </div>
