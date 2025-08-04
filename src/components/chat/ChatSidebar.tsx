@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Archive, FileUp, SlidersHorizontal } from 'lucide-react';
+import { Archive, FileUp, SlidersHorizontal, Moon, Sun } from 'lucide-react';
 import type { ChatSettings } from '@/hooks/use-chat';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -21,6 +21,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { useTheme } from 'next-themes';
 
 interface ChatSidebarProps {
   settings: ChatSettings;
@@ -28,6 +29,8 @@ interface ChatSidebarProps {
 }
 
 export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
+  const { theme, setTheme } = useTheme();
+
   return (
     <aside className="w-full md:w-80 flex flex-col h-full border-l bg-background/80 backdrop-blur-sm">
       <ScrollArea className="flex-1">
@@ -135,9 +138,18 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
       <Separator />
       <div className="p-4 flex justify-between items-center">
         <Label htmlFor="dark-mode" className="flex items-center gap-2">
-          Dark Mode
+          {theme === 'dark' ? (
+            <Moon className="h-5 w-5" />
+          ) : (
+            <Sun className="h-5 w-5" />
+          )}
+          {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
         </Label>
-        <Switch id="dark-mode" checked={true} disabled />
+        <Switch
+          id="dark-mode"
+          checked={theme === 'dark'}
+          onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        />
       </div>
     </aside>
   );
