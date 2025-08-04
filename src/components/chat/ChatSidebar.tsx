@@ -89,7 +89,7 @@ export function ChatSidebar({
           )}
         </div>
       </ScrollArea>
-      <div className="mt-auto">
+      <div className="mt-auto mb-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className={cn("w-full justify-start gap-2", !isSidebarOpen && "justify-center")}>
