@@ -168,7 +168,6 @@ export function ChatSidebar({
                     <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value="theme-sunrise">Sunrise</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="theme-mint">Mint</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value="theme-rose">Rose</DropdownMenuRadioItem>
                   </DropdownMenuRadioGroup>
                 </DropdownMenuSubContent>

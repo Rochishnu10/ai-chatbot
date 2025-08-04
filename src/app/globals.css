@@ -69,28 +69,6 @@
     --ring: 15 85% 55%;
   }
 
-  .theme-mint {
-    --background: 150 40% 98%;
-    --foreground: 150 20% 10%;
-    --card: 150 40% 96%;
-    --card-foreground: 150 20% 10%;
-    --popover: 150 40% 98%;
-    --popover-foreground: 150 20% 10%;
-    --primary: 160 70% 45%;
-    --primary-foreground: 160 15% 98%;
-    --secondary: 155 45% 92%;
-    --secondary-foreground: 150 20% 20%;
-    --muted: 155 45% 92%;
-    --muted-foreground: 150 20% 40%;
-    --accent: 165 65% 55%;
-    --accent-foreground: 150 20% 10%;
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 155 40% 88%;
-    --input: 155 40% 88%;
-    --ring: 160 70% 45%;
-  }
-
   .theme-rose {
     --background: 350 60% 98%;
     --foreground: 350 30% 20%;
