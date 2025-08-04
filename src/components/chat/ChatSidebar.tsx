@@ -101,11 +101,13 @@ export function ChatSidebar({
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
-                  <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
-                   <DropdownMenuItem onClick={() => setTheme('theme-sunrise')}>Sunrise</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('theme-mint')}>Mint</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('theme-rose')}>Rose</DropdownMenuItem>
+                  <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+                    <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="theme-sunrise">Sunrise</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="theme-mint">Mint</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="theme-rose">Rose</DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
