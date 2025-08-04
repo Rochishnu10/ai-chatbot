@@ -3,7 +3,8 @@
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Mic, Paperclip, SendHorizonal, Smile } from 'lucide-react';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface ChatInputProps {
   onSend: (message: string) => void;
