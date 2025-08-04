@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import type { Message } from '@/hooks/use-chat';
-import { Bot } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { NovaLogo } from './NovaLogo';
 
 interface ChatMessageProps {
   message: Message;
@@ -31,7 +31,7 @@ export function ChatMessage({ message, isLoading }: ChatMessageProps) {
           alt={isBot ? 'Bot' : 'User'}
         />
         <AvatarFallback>
-          {isBot ? <Bot size={20} /> : 'U'}
+          {isBot ? <NovaLogo className="h-5 w-5" /> : 'U'}
         </AvatarFallback>
       </Avatar>
       <div
