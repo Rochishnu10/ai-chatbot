@@ -1,8 +1,23 @@
 
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { chat, type ChatInput } from '@/ai/flows/chat';
+import { v4 as uuidv4 } from 'uuid';
+
+
+// Mock uuid for client-side usage as it's not available in all environments
+// In a real app, you might use a different library or ensure uuid is polyfilled.
+const mockUuid = () => {
+    try {
+        return uuidv4();
+    } catch (e) {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+}
 
 export interface Message {
   role: 'user' | 'assistant';
@@ -14,11 +29,20 @@ export interface Message {
   };
 }
 
+export interface ChatSession {
+  id: string;
+  title: string;
+  messages: Message[];
+  timestamp: number;
+}
+
 export interface ChatSettings {
   tone: 'formal' | 'informal' | 'humorous';
   language: string;
   responseLength: number;
 }
+
+const CHAT_HISTORY_KEY = 'nova-chat-history';
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -28,15 +52,96 @@ export function useChat() {
     language: 'English',
     responseLength: 250,
   });
+  const [chatHistory, setChatHistory] = useState<ChatSession[]>([]);
+  const [currentChatId, setCurrentChatId] = useState<string | null>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const storedHistory = localStorage.getItem(CHAT_HISTORY_KEY);
+    if (storedHistory) {
+      setChatHistory(JSON.parse(storedHistory));
+    }
+  }, []);
+
+  useEffect(() => {
+    // If there is history, load the most recent chat. Otherwise, start a new one.
+    if (chatHistory.length > 0) {
+        if (!currentChatId) {
+            const mostRecentChat = [...chatHistory].sort((a,b) => b.timestamp - a.timestamp)[0];
+            loadChat(mostRecentChat.id);
+        }
+    } else if (!currentChatId) {
+        startNewChat();
+    }
+  }, [chatHistory, currentChatId]);
+
+
+  useEffect(() => {
+    // Save history whenever it changes
+    if (chatHistory.length > 0) {
+      localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(chatHistory));
+    } else {
+      localStorage.removeItem(CHAT_HISTORY_KEY);
+    }
+  }, [chatHistory]);
+  
 
   const handleSettingsChange = (newSettings: Partial<ChatSettings>) => {
     setSettings((prev) => ({ ...prev, ...newSettings }));
   };
 
+  const loadChat = (id: string) => {
+    const chatToLoad = chatHistory.find((chat) => chat.id === id);
+    if (chatToLoad) {
+      setCurrentChatId(id);
+      setMessages(chatToLoad.messages);
+    }
+  };
+
+  const startNewChat = () => {
+    const newId = mockUuid();
+    setCurrentChatId(newId);
+    setMessages([]);
+  };
+
+  const clearChatHistory = () => {
+    setChatHistory([]);
+    startNewChat();
+  };
+
+  const updateChatHistory = (chatId: string, newMessages: Message[], userMessage: Message) => {
+    setChatHistory(prev => {
+        const existingChatIndex = prev.findIndex(c => c.id === chatId);
+        let newHistory = [...prev];
+        
+        if (existingChatIndex !== -1) {
+            // Update existing chat
+            const updatedChat = {
+                ...newHistory[existingChatIndex],
+                messages: newMessages,
+                timestamp: Date.now(),
+            };
+            newHistory[existingChatIndex] = updatedChat;
+        } else {
+            // Create new chat
+            const newChatSession: ChatSession = {
+                id: chatId,
+                title: userMessage.content.substring(0, 30) || 'New Chat',
+                messages: newMessages,
+                timestamp: Date.now(),
+            };
+            newHistory.push(newChatSession);
+        }
+        return newHistory;
+    });
+  };
+
   const handleSend = async (text: string, attachment?: Message['attachment']) => {
+    if (!currentChatId) return;
+
     const userMessage: Message = { role: 'user', content: text, attachment };
-    setMessages((prev) => [...prev, userMessage]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setIsLoading(true);
 
     try {
@@ -45,18 +150,8 @@ export function useChat() {
         tone: settings.tone,
       };
 
-      if (attachment) {
-        if (attachment.type.startsWith('image/')) {
-          chatInput.photoDataUri = attachment.data;
-        } else {
-          toast({
-            variant: 'destructive',
-            title: 'Unsupported File Type',
-            description: 'Currently, only image files can be sent to the AI.',
-          });
-          // To keep the UI consistent, we'll continue, but the AI won't get the file.
-          // A more robust solution might prevent sending or clear the attachment.
-        }
+      if (attachment && attachment.type.startsWith('image/')) {
+        chatInput.photoDataUri = attachment.data;
       }
       
       const chatResult = await chat(chatInput);
@@ -65,8 +160,11 @@ export function useChat() {
         role: 'assistant',
         content: chatResult.response,
       };
+      
+      const finalMessages = [...newMessages, botMessage];
+      setMessages(finalMessages);
+      updateChatHistory(currentChatId, finalMessages, userMessage);
 
-      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       console.error('Error getting AI response:', error);
       toast({
@@ -88,7 +186,12 @@ export function useChat() {
     messages,
     isLoading,
     settings,
+    chatHistory,
+    currentChatId,
     handleSend,
     handleSettingsChange,
+    loadChat,
+    startNewChat,
+    clearChatHistory,
   };
 }

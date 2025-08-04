@@ -10,17 +10,27 @@ import { ChatSidebar } from './ChatSidebar';
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '../ui/button';
 import { Menu } from 'lucide-react';
 
 export default function ChatLayout() {
-  const { messages, isLoading, settings, handleSend, handleSettingsChange } =
-    useChat();
+  const {
+    messages,
+    isLoading,
+    settings,
+    handleSend,
+    handleSettingsChange,
+    chatHistory,
+    startNewChat,
+    loadChat,
+    clearChatHistory,
+    currentChatId,
+  } = useChat();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
@@ -31,9 +41,14 @@ export default function ChatLayout() {
         onSidebarToggle={() => setIsSidebarOpen(!isSidebarOpen)}
         settings={settings}
         onSettingsChange={handleSettingsChange}
+        chatHistory={chatHistory}
+        currentChatId={currentChatId}
+        onStartNewChat={startNewChat}
+        onLoadChat={loadChat}
+        onClearHistory={clearChatHistory}
         className={cn(
           'transition-all duration-300 ease-in-out',
-          isSidebarOpen ? 'w-full md:w-60' : 'w-0 md:w-16',
+          isSidebarOpen ? 'w-full md:w-80' : 'w-0 md:w-16',
           'hidden md:flex'
         )}
       />
@@ -45,7 +60,7 @@ export default function ChatLayout() {
                         <Menu />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="p-0 w-3/5 max-w-xs flex flex-col">
+                <SheetContent side="left" className="p-0 w-4/5 max-w-xs flex flex-col">
                     <SheetHeader className='p-4 pb-0'>
                       <SheetTitle className='sr-only'>Sidebar</SheetTitle>
                       <SheetDescription className='sr-only'>
@@ -57,6 +72,17 @@ export default function ChatLayout() {
                         onSidebarToggle={() => setIsMobileSidebarOpen(false)}
                         settings={settings}
                         onSettingsChange={handleSettingsChange}
+                        chatHistory={chatHistory}
+                        currentChatId={currentChatId}
+                        onStartNewChat={() => {
+                          startNewChat();
+                          setIsMobileSidebarOpen(false);
+                        }}
+                        onLoadChat={(id) => {
+                          loadChat(id);
+                          setIsMobileSidebarOpen(false);
+                        }}
+                        onClearHistory={clearChatHistory}
                         className='w-full border-none'
                     />
                 </SheetContent>
