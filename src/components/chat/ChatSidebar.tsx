@@ -172,6 +172,16 @@ export function ChatSidebar({ settings, onSettingsChange }: ChatSidebarProps) {
                           <SelectItem value="dark">Dark</SelectItem>
                           <SelectItem value="theme-sunrise">Sunrise</SelectItem>
                           <SelectItem value="theme-ocean">Ocean</SelectItem>
+                          <SelectItem value="theme-crimson">Crimson</SelectItem>
+                          <SelectItem value="theme-emerald">Emerald</SelectItem>
+                          <SelectItem value="theme-cyberpunk">Cyberpunk</SelectItem>
+                          <SelectItem value="theme-vintage">Vintage</SelectItem>
+                          <SelectItem value="theme-galaxy">Galaxy</SelectItem>
+                          <SelectItem value="theme-mint">Mint</SelectItem>
+                          <SelectItem value="theme-rose">Rose</SelectItem>
+                          <SelectItem value="theme-dusk">Dusk</SelectItem>
+                          <SelectItem value="theme-arctic">Arctic</SelectItem>
+                          <SelectItem value="theme-forest">Forest</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
