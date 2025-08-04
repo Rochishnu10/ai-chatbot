@@ -17,39 +17,34 @@ export function NovaLogo({ className }: { className?: string }) {
         </linearGradient>
       </defs>
       <path
-        d="M12 2L2 7V17L12 22L22 17V7L12 2Z"
+        d="M12 2L9.5 9.5L2 12L9.5 14.5L12 22L14.5 14.5L22 12L14.5 9.5L12 2Z"
         stroke="url(#logoGradient)"
         strokeWidth="1.5"
         strokeLinejoin="round"
       />
       <path
-        d="M12 12L22 7"
+        d="M5 5L7 10"
         stroke="url(#logoGradient)"
         strokeWidth="1.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
-      <path
-        d="M12 12V22"
+       <path
+        d="M19 5L17 10"
         stroke="url(#logoGradient)"
         strokeWidth="1.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
-      <path
-        d="M12 12L2 7"
+       <path
+        d="M5 19L7 14"
         stroke="url(#logoGradient)"
         strokeWidth="1.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
-      <path
-        d="M17 4.5L7 9.5"
+       <path
+        d="M19 19L17 14"
         stroke="url(#logoGradient)"
         strokeWidth="1.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeDasharray="2 2"
       />
     </svg>
   );
