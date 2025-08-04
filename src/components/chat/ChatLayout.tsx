@@ -22,7 +22,7 @@ export default function ChatLayout() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen w-full bg-transparent overflow-hidden">
+    <div className="flex h-[100vh] w-full bg-transparent overflow-hidden">
       <ChatSidebar
         isSidebarOpen={isSidebarOpen}
         onSidebarToggle={() => setIsSidebarOpen(!isSidebarOpen)}
