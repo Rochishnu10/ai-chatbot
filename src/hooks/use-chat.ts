@@ -1,3 +1,4 @@
+
 'use client';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
@@ -6,6 +7,11 @@ import { chat, type ChatInput } from '@/ai/flows/chat';
 export interface Message {
   role: 'user' | 'assistant';
   content: string;
+  attachment?: {
+    name: string;
+    type: string;
+    data: string;
+  };
 }
 
 export interface ChatSettings {
@@ -28,12 +34,16 @@ export function useChat() {
     setSettings((prev) => ({ ...prev, ...newSettings }));
   };
 
-  const handleSend = async (text: string) => {
-    const userMessage: Message = { role: 'user', content: text };
+  const handleSend = async (text: string, attachment?: Message['attachment']) => {
+    const userMessage: Message = { role: 'user', content: text, attachment };
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
 
     try {
+      // TODO: Handle attachment in the AI flow
+      if (attachment) {
+        console.log('Sending attachment:', attachment.name);
+      }
       const chatInput: ChatInput = {
         message: text,
         tone: settings.tone,
