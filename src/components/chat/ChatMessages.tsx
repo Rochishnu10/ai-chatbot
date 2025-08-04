@@ -33,13 +33,10 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
           <ChatMessage key={index} message={message} />
         ))}
         {isLoading && (
-          <div className="flex items-start">
-             <ChatMessage
-              message={{ role: 'assistant', content: '' }}
-              isLoading={true}
-            />
-            <TypingIndicator />
-          </div>
+          <ChatMessage
+            message={{ role: 'assistant', content: '' }}
+            isLoading={true}
+          />
         )}
       </div>
     </ScrollArea>

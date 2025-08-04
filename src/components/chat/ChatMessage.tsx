@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import type { Message } from '@/hooks/use-chat';
 import { motion } from 'framer-motion';
 import { NovaLogo } from './NovaLogo';
+import { TypingIndicator } from './TypingIndicator';
 
 interface ChatMessageProps {
   message: Message;
@@ -11,6 +12,7 @@ interface ChatMessageProps {
 
 export function ChatMessage({ message, isLoading }: ChatMessageProps) {
   const isBot = message.role === 'assistant';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -47,7 +49,11 @@ export function ChatMessage({ message, isLoading }: ChatMessageProps) {
               : 'bg-primary text-primary-foreground'
           )}
         >
-          <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+          {isBot && isLoading ? (
+            <TypingIndicator />
+          ) : (
+            <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+          )}
         </div>
       </div>
     </motion.div>
