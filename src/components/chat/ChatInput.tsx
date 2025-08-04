@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Mic, Paperclip, SendHorizonal, Smile } from 'lucide-react';
 import React, { useRef, useState, useEffect } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -41,7 +40,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
           placeholder="Type your message here..."
           rows={1}
           maxRows={5}
-          className="min-h-[48px] w-full resize-none rounded-2xl border-input bg-secondary/50 p-4 pr-28 text-sm shadow-sm focus:border-primary focus:ring-primary"
+          className="min-h-[48px] w-full resize-none rounded-2xl border-input bg-secondary/50 p-4 pr-40 text-sm shadow-sm focus:border-primary focus:ring-primary"
           disabled={isLoading}
         />
         <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
@@ -53,6 +52,15 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
           >
             <Smile className="h-5 w-5" />
             <span className="sr-only">Emoji</span>
+          </Button>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="rounded-full hover:bg-primary/10 hover:text-primary transition-all"
+            disabled
+          >
+            <Paperclip className="h-5 w-5" />
+            <span className="sr-only">Attach file</span>
           </Button>
           <Button
             size="icon"
