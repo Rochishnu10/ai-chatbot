@@ -1,4 +1,4 @@
-// Generates a chat response from the AI.
+// Generates a chat response from the AI with a specified tone.
 // - chat - A function that generates a chat response.
 // - ChatInput - The input type for the chat function.
 // - ChatOutput - The return type for the chat function.
@@ -10,6 +10,9 @@ import {z} from 'genkit';
 
 const ChatInputSchema = z.object({
   message: z.string().describe('The user message.'),
+  tone: z
+    .enum(['formal', 'informal', 'humorous'])
+    .describe('The desired tone of the chatbot response.'),
 });
 export type ChatInput = z.infer<typeof ChatInputSchema>;
 
@@ -27,6 +30,7 @@ const prompt = ai.definePrompt({
   input: {schema: ChatInputSchema},
   output: {schema: ChatOutputSchema},
   prompt: `You are a helpful AI assistant named Nova. Your persona is futuristic and slightly witty.
+  Adjust your response to match the desired tone: {{{tone}}}.
   User's message: {{{message}}}
   Your response:`,
 });

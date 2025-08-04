@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { adjustTone, type AdjustToneInput } from '@/ai/flows/adjust-tone';
 import { chat, type ChatInput } from '@/ai/flows/chat';
 
 export interface Message {
@@ -35,19 +34,15 @@ export function useChat() {
     setIsLoading(true);
 
     try {
-      const chatInput: ChatInput = { message: text };
-      const chatResult = await chat(chatInput);
-
-      const toneInput: AdjustToneInput = {
-        originalResponse: chatResult.response,
+      const chatInput: ChatInput = {
+        message: text,
         tone: settings.tone,
       };
-      
-      const toneResult = await adjustTone(toneInput);
+      const chatResult = await chat(chatInput);
 
       const botMessage: Message = {
         role: 'assistant',
-        content: toneResult.adjustedResponse,
+        content: chatResult.response,
       };
 
       setMessages((prev) => [...prev, botMessage]);
@@ -56,7 +51,7 @@ export function useChat() {
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'Failed to get a response from the AI.',
+        description: 'Failed to get a response from the AI. The model may be overloaded. Please try again later.',
       });
       const errorMessage: Message = {
         role: 'assistant',
