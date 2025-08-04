@@ -20,7 +20,7 @@ export default function ChatLayout() {
         onSettingsChange={handleSettingsChange}
         className={cn(
           'transition-all duration-300 ease-in-out',
-          isSidebarOpen ? 'w-full md:w-80' : 'w-0 md:w-20',
+          isSidebarOpen ? 'w-full md:w-72' : 'w-0 md:w-20',
           'hidden md:flex'
         )}
       />
