@@ -42,10 +42,20 @@ export async function chat(input: ChatInput): Promise<ChatOutput> {
 
 const prompt = ai.definePrompt({
   name: 'chatPrompt',
-  input: {schema: ChatInputSchema},
+  input: {schema: z.object({
+    message: ChatInputSchema.shape.message,
+    tone: ChatInputSchema.shape.tone,
+    photoDataUri: ChatInputSchema.shape.photoDataUri,
+    formattedHistory: z.string().optional(),
+  })},
   output: {schema: ChatOutputSchema},
   prompt: `You are a helpful AI assistant named Nova. Your persona is futuristic and slightly witty.
   Adjust your response to match the desired tone: {{{tone}}}.
+
+  {{#if formattedHistory}}
+  Here is the conversation history:
+  {{{formattedHistory}}}
+  {{/if}}
 
   {{#if photoDataUri}}
   The user has provided an image. Analyze the image and use it to inform your response.
@@ -63,7 +73,15 @@ const chatFlow = ai.defineFlow(
     outputSchema: ChatOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    // Format the history into a simple string to avoid complex Handlebars logic.
+    const formattedHistory = (input.history || [])
+      .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
+      .join('\n');
+
+    const {output} = await prompt({
+      ...input,
+      formattedHistory,
+    });
     return output!;
   }
 );
