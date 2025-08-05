@@ -41,7 +41,7 @@ export function ChatMessage({ message, isLoading }: ChatMessageProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       className={cn(
-        'group relative flex items-start -ml-2 p-2 rounded-lg',
+        'group relative flex items-start p-2 rounded-lg',
         { 'justify-end flex-row-reverse': !isBot }
       )}
     >
