@@ -12,7 +12,6 @@ import {
   MessageSquare,
   Trash2,
   Orbit,
-  ChevronRight,
 } from 'lucide-react';
 import type { ChatSettings, ChatSession, BackgroundAnimation } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -156,7 +155,7 @@ export function ChatSidebar({
           ) : null}
         </div>
       </ScrollArea>
-      <div className="mt-auto p-2 space-y-2">
+      <div className="mt-auto p-2 space-y-2 pb-4">
       {isSidebarOpen && chatHistory.length > 0 && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
