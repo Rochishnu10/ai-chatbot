@@ -47,13 +47,6 @@ const prompt = ai.definePrompt({
   prompt: `You are a helpful AI assistant named Nova. Your persona is futuristic and slightly witty.
   Adjust your response to match the desired tone: {{{tone}}}.
 
-  {{#if history}}
-  Here is the conversation history:
-  {{#each history}}
-  {{#if (eq role "user")}}User: {{content}}{{/if}}{{#if (eq role "assistant")}}Nova: {{content}}{{/if}}
-  {{/each}}
-  {{/if}}
-
   {{#if photoDataUri}}
   The user has provided an image. Analyze the image and use it to inform your response.
   Image: {{media url=photoDataUri}}
@@ -61,11 +54,6 @@ const prompt = ai.definePrompt({
 
   User's message: {{{message}}}
   Your response:`,
-  custom: {
-    helpers: {
-      eq: (a: any, b: any) => a === b,
-    },
-  },
 });
 
 const chatFlow = ai.defineFlow(
