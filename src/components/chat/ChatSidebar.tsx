@@ -193,7 +193,6 @@ export function ChatSidebar({
                     <DropdownMenuSubTrigger>
                         <Palette className="mr-2" />
                         <span>Theme</span>
-                        <ChevronRight className="ml-auto" />
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                         <DropdownMenuSubContent>
@@ -210,7 +209,6 @@ export function ChatSidebar({
                     <DropdownMenuSubTrigger>
                         <Orbit className="mr-2" />
                         <span>Animation</span>
-                        <ChevronRight className="ml-auto" />
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                         <DropdownMenuSubContent>
@@ -227,7 +225,6 @@ export function ChatSidebar({
                      <DropdownMenuSubTrigger>
                         <Settings className="mr-2" />
                         <span>Tone</span>
-                        <ChevronRight className="ml-auto" />
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                         <DropdownMenuSubContent>
