@@ -41,6 +41,7 @@ export default function RootLayout({
           disableTransitionOnChange
           themes={['light', 'dark', 'theme-sunrise', 'theme-rose']}
         >
+          <div className="background-gradient" />
           {children}
           <Toaster />
         </ThemeProvider>

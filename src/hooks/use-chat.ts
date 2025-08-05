@@ -33,7 +33,7 @@ export interface ChatSession {
   timestamp: number;
 }
 
-export type BackgroundAnimation = 'pan' | 'spin' | 'pulse' | 'none';
+export type BackgroundAnimation = 'orbit' | 'nebula' | 'pulse' | 'none';
 
 export interface ChatSettings {
   tone: 'formal' | 'informal' | 'humorous';
@@ -49,7 +49,7 @@ export function useChat() {
   const [isLoading, setIsLoading] = useState(false);
   const [settings, setSettings] = useState<ChatSettings>({
     tone: 'informal',
-    animation: 'pan',
+    animation: 'orbit',
   });
   const [chatHistory, setChatHistory] = useState<ChatSession[]>([]);
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
@@ -91,9 +91,16 @@ export function useChat() {
   useEffect(() => {
     // Save settings whenever they change
     localStorage.setItem(CHAT_SETTINGS_KEY, JSON.stringify(settings));
-    // Also update body class for animation
-    document.body.classList.remove('animation-pan', 'animation-spin', 'animation-pulse', 'animation-none');
-    document.body.classList.add(`animation-${settings.animation}`);
+    
+    // Also update animation style on the background element
+    const backgroundElement = document.querySelector('.background-gradient');
+    if (backgroundElement) {
+        const animationName = settings.animation !== 'none' ? `anim-${settings.animation}` : 'none';
+        const animationAlternate = settings.animation === 'pulse' ? 'alternate' : 'normal';
+        (backgroundElement as HTMLElement).style.animationName = animationName;
+        (backgroundElement as HTMLElement).style.animationDirection = animationAlternate;
+    }
+
   }, [settings]);
   
 

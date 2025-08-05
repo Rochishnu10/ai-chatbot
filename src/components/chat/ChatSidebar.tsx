@@ -224,8 +224,8 @@ export function ChatSidebar({
                         onSettingsChange({ animation: value as BackgroundAnimation })
                         }
                     >
-                        <DropdownMenuRadioItem value="pan">Pan</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="spin">Spin</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="orbit">Orbit</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="nebula">Nebula</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="pulse">Pulse</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="none">None</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
