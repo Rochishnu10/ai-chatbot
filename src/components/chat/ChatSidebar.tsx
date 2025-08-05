@@ -12,6 +12,7 @@ import {
   MessageSquare,
   Trash2,
   Orbit,
+  ChevronDown,
 } from 'lucide-react';
 import type { ChatSettings, ChatSession, BackgroundAnimation } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -19,19 +20,15 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+  } from "@/components/ui/collapsible"
+import {
+    RadioGroup,
+    RadioGroupItem
+} from '@/components/ui/radio-group'
+import { Label } from '@/components/ui/label';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -73,21 +70,22 @@ export function ChatSidebar({
 }: ChatSidebarProps) {
   const { theme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const handleDelete = (e: React.MouseEvent, sessionId: string) => {
+    e.stopPropagation(); // Prevent the chat from loading when deleting
+    onDeleteSession(sessionId);
+  }
 
   if (!isMounted) {
     return null;
   }
 
   const sortedHistory = [...chatHistory].sort((a, b) => b.timestamp - a.timestamp);
-
-  const handleDelete = (e: React.MouseEvent, sessionId: string) => {
-    e.stopPropagation(); // Prevent the chat from loading when deleting
-    onDeleteSession(sessionId);
-  }
 
   return (
     <aside
@@ -183,85 +181,46 @@ export function ChatSidebar({
             </AlertDialogContent>
           </AlertDialog>
         )}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className={cn("w-full justify-start gap-2 rounded-full", !isSidebarOpen && "justify-center")}>
-              <User />
-              {isSidebarOpen && <span>User Settings</span>}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-64 mb-2" sideOffset={8} side="top" align={isSidebarOpen ? 'start' : 'center'}>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <Palette className="mr-2 h-4 w-4" />
-                <span>Theme</span>
-              </DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                    <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="theme-sunrise">Sunrise</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="theme-rose">Rose</DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
+        <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+            <CollapsibleContent className='p-2 space-y-4 mb-2'>
+                <div className='space-y-2'>
+                    <Label className='flex items-center gap-2'><Palette/> Theme</Label>
+                    <RadioGroup value={theme} onValueChange={setTheme} className='pl-6'>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='light' id='light'/><Label htmlFor='light'>Light</Label></div>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='dark' id='dark'/><Label htmlFor='dark'>Dark</Label></div>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='theme-sunrise' id='sunrise'/><Label htmlFor='sunrise'>Sunrise</Label></div>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='theme-rose' id='rose'/><Label htmlFor='rose'>Rose</Label></div>
+                    </RadioGroup>
+                </div>
+                <div className='space-y-2'>
+                    <Label className='flex items-center gap-2'><Orbit/> Animation</Label>
+                    <RadioGroup value={settings.animation} onValueChange={(value) => onSettingsChange({ animation: value as BackgroundAnimation })} className='pl-6'>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='orbit' id='orbit'/><Label htmlFor='orbit'>Orbit</Label></div>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='nebula' id='nebula'/><Label htmlFor='nebula'>Nebula</Label></div>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='pulse' id='pulse'/><Label htmlFor='pulse'>Pulse</Label></div>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='none' id='none'/><Label htmlFor='none'>None</Label></div>
+                    </RadioGroup>
+                </div>
+                <div className='space-y-2'>
+                    <Label className='flex items-center gap-2'><Settings/> Tone</Label>
+                    <RadioGroup value={settings.tone} onValueChange={(value) => onSettingsChange({ tone: value as 'formal' | 'informal' | 'humorous' })} className='pl-6'>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='formal' id='formal'/><Label htmlFor='formal'>Formal</Label></div>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='informal' id='informal'/><Label htmlFor='informal'>Informal</Label></div>
+                        <div className='flex items-center space-x-2'><RadioGroupItem value='humorous' id='humorous'/><Label htmlFor='humorous'>Humorous</Label></div>
+                    </RadioGroup>
+                </div>
 
-            <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                    <Orbit className="mr-2 h-4 w-4" />
-                    <span>Animation</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                    <DropdownMenuSubContent>
-                    <DropdownMenuRadioGroup
-                        value={settings.animation}
-                        onValueChange={(value) =>
-                        onSettingsChange({ animation: value as BackgroundAnimation })
-                        }
-                    >
-                        <DropdownMenuRadioItem value="orbit">Orbit</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="nebula">Nebula</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="pulse">Pulse</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="none">None</DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                    </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-            </DropdownMenuSub>
-            
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Tone</span>
-              </DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuRadioGroup
-                    value={settings.tone}
-                    onValueChange={(value) =>
-                      onSettingsChange({
-                        tone: value as 'formal' | 'informal' | 'humorous',
-                      })
-                    }
-                  >
-                    <DropdownMenuRadioItem value="formal">
-                      Formal
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="informal">
-                      Informal
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="humorous">
-                      Humorous
-                    </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            </CollapsibleContent>
+            <CollapsibleTrigger asChild>
+                <Button variant="ghost" className={cn("w-full justify-between gap-2 rounded-full", !isSidebarOpen && "justify-center")}>
+                    <div className='flex items-center gap-2'>
+                        <User />
+                        {isSidebarOpen && <span>User Settings</span>}
+                    </div>
+                    {isSidebarOpen && <ChevronDown className={cn('h-4 w-4 transition-transform', isSettingsOpen && 'rotate-180')} />}
+                </Button>
+            </CollapsibleTrigger>
+        </Collapsible>
       </div>
     </aside>
   );
