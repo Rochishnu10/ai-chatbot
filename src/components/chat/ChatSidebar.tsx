@@ -182,7 +182,7 @@ export function ChatSidebar({
         )}
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className={cn("w-full justify-start", !isSidebarOpen && "justify-center")}>
+                <Button variant="ghost" className={cn("w-full justify-start rounded-full", !isSidebarOpen && "justify-center")}>
                     <User />
                     {isSidebarOpen && <span className="ml-2">User Settings</span>}
                 </Button>
