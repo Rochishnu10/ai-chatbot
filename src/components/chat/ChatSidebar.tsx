@@ -100,7 +100,7 @@ export function ChatSidebar({
         </Button>
       </div>
       <div className='px-2'>
-        <Button variant="outline" className={cn('w-full', !isSidebarOpen && 'justify-center')} onClick={onStartNewChat}>
+        <Button variant="outline" className={cn('w-full rounded-full', !isSidebarOpen && 'justify-center')} onClick={onStartNewChat}>
             <MessageSquarePlus />
             {isSidebarOpen && <span className="ml-2">New Chat</span>}
         </Button>
