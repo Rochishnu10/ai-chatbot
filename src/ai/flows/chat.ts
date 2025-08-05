@@ -52,6 +52,8 @@ const prompt = ai.definePrompt({
   prompt: `You are a helpful AI assistant named Nova. Your persona is futuristic and slightly witty.
   Adjust your response to match the desired tone: {{{tone}}}.
 
+  If the tone is 'formal', you must be professional and reply methodically.
+
   {{#if formattedHistory}}
   Here is the conversation history:
   {{{formattedHistory}}}
