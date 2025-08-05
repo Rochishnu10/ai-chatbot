@@ -11,8 +11,9 @@ import {
   User,
   MessageSquare,
   Trash2,
+  Orbit,
 } from 'lucide-react';
-import type { ChatSettings, ChatSession } from '@/hooks/use-chat';
+import type { ChatSettings, ChatSession, BackgroundAnimation } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -122,14 +123,32 @@ export function ChatSidebar({
                     <MessageSquare className="h-4 w-4" />
                     <span className='truncate'>{session.title}</span>
                   </Button>
-                  <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
-                      onClick={(e) => handleDelete(e, session.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                        onClick={(e) => e.stopPropagation()}
+                        >
+                        <Trash2 className="h-4 w-4" />
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This will permanently delete this chat session. This action cannot be undone.
+                        </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={(e) => handleDelete(e, session.id)} className='bg-destructive hover:bg-destructive/90'>
+                            Delete
+                        </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
               ))
             ) : (
@@ -192,6 +211,28 @@ export function ChatSidebar({
               </DropdownMenuPortal>
             </DropdownMenuSub>
 
+            <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                    <Orbit className="mr-2 h-4 w-4" />
+                    <span>Animation</span>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                    <DropdownMenuRadioGroup
+                        value={settings.animation}
+                        onValueChange={(value) =>
+                        onSettingsChange({ animation: value as BackgroundAnimation })
+                        }
+                    >
+                        <DropdownMenuRadioItem value="pan">Pan</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="spin">Spin</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="pulse">Pulse</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="none">None</DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                    </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+            </DropdownMenuSub>
+            
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
                 <Settings className="mr-2 h-4 w-4" />

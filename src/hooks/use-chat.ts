@@ -5,9 +5,6 @@ import { useToast } from '@/hooks/use-toast';
 import { chat, type ChatInput } from '@/ai/flows/chat';
 import { v4 as uuidv4 } from 'uuid';
 
-
-// Mock uuid for client-side usage as it's not available in all environments
-// In a real app, you might use a different library or ensure uuid is polyfilled.
 const mockUuid = () => {
     try {
         return uuidv4();
@@ -36,21 +33,23 @@ export interface ChatSession {
   timestamp: number;
 }
 
+export type BackgroundAnimation = 'pan' | 'spin' | 'pulse' | 'none';
+
 export interface ChatSettings {
   tone: 'formal' | 'informal' | 'humorous';
-  language: string;
-  responseLength: number;
+  animation: BackgroundAnimation;
 }
 
 const CHAT_HISTORY_KEY = 'nova-chat-history';
+const CHAT_SETTINGS_KEY = 'nova-chat-settings';
+
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [settings, setSettings] = useState<ChatSettings>({
     tone: 'informal',
-    language: 'English',
-    responseLength: 250,
+    animation: 'pan',
   });
   const [chatHistory, setChatHistory] = useState<ChatSession[]>([]);
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
@@ -60,6 +59,10 @@ export function useChat() {
     const storedHistory = localStorage.getItem(CHAT_HISTORY_KEY);
     if (storedHistory) {
       setChatHistory(JSON.parse(storedHistory));
+    }
+    const storedSettings = localStorage.getItem(CHAT_SETTINGS_KEY);
+    if (storedSettings) {
+        setSettings(JSON.parse(storedSettings));
     }
   }, []);
 
@@ -84,6 +87,14 @@ export function useChat() {
       localStorage.removeItem(CHAT_HISTORY_KEY);
     }
   }, [chatHistory]);
+
+  useEffect(() => {
+    // Save settings whenever they change
+    localStorage.setItem(CHAT_SETTINGS_KEY, JSON.stringify(settings));
+    // Also update body class for animation
+    document.body.classList.remove('animation-pan', 'animation-spin', 'animation-pulse', 'animation-none');
+    document.body.classList.add(`animation-${settings.animation}`);
+  }, [settings]);
   
 
   const handleSettingsChange = (newSettings: Partial<ChatSettings>) => {
