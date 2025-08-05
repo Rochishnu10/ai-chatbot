@@ -2,7 +2,6 @@
 import type { Message } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChatMessage } from './ChatMessage';
-import { TypingIndicator } from './TypingIndicator';
 import { useEffect, useRef } from 'react';
 
 interface ChatMessagesProps {
@@ -11,18 +10,24 @@ interface ChatMessagesProps {
 }
 
 export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (viewportRef.current) {
-      viewportRef.current.scrollTop = viewportRef.current.scrollHeight;
-    }
+    const scrollToBottom = () => {
+      if (viewportRef.current) {
+        viewportRef.current.scrollTop = viewportRef.current.scrollHeight;
+      }
+    };
+    
+    // A short delay ensures the DOM has updated before we try to scroll
+    const timer = setTimeout(scrollToBottom, 50);
+
+    return () => clearTimeout(timer);
   }, [messages, isLoading]);
 
   return (
-    <ScrollArea className="h-full w-full" ref={scrollAreaRef}>
-      <div className="p-4 md:p-6" ref={viewportRef}>
+    <ScrollArea className="h-full w-full" ref={viewportRef}>
+      <div className="p-4 md:p-6">
         <ChatMessage
           message={{
             role: 'assistant',
