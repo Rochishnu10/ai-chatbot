@@ -118,6 +118,21 @@
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
   }
+
+  .sidebar-gradient {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, hsl(var(--primary) / 0.3), transparent 50%),
+                radial-gradient(circle at bottom right, hsl(var(--accent) / 0.3), transparent 50%);
+    z-index: -1;
+    pointer-events: none;
+    will-change: transform;
+    animation: anim-orbit 30s linear infinite;
+  }
 }
 
 @keyframes anim-orbit {

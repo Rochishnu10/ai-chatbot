@@ -89,10 +89,11 @@ export function ChatSidebar({
   return (
     <aside
       className={cn(
-        'flex flex-col h-full border-r bg-transparent backdrop-blur-sm p-2 gap-2',
+        'relative flex flex-col h-full border-r bg-transparent backdrop-blur-sm p-2 gap-2 overflow-hidden',
         className
       )}
     >
+      <div className="sidebar-gradient" />
       <div className="flex items-center justify-between p-2">
         {isSidebarOpen && <h2 className="text-lg font-headline">History</h2>}
         <Button variant="ghost" size="icon" onClick={onSidebarToggle}>
