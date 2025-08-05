@@ -4,7 +4,7 @@
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Mic, Paperclip, SendHorizonal, Smile, X, File as FileIcon } from 'lucide-react';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   Popover,
   PopoverContent,
@@ -27,6 +27,12 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (!isLoading) {
+      textareaRef.current?.focus();
+    }
+  }, [isLoading]);
 
   const handleSend = () => {
     if ((message.trim() || attachment) && !isLoading) {
