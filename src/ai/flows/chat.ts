@@ -11,7 +11,7 @@ import {z} from 'genkit';
 const ChatInputSchema = z.object({
   message: z.string().describe('The user message.'),
   tone: z
-    .enum(['formal', 'informal', 'humorous'])
+    .enum(['formal', 'informal', 'humorous', 'normal'])
     .describe('The desired tone of the chatbot response.'),
   photoDataUri: z
     .string()

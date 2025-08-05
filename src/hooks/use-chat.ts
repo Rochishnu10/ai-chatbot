@@ -36,7 +36,7 @@ export interface ChatSession {
 export type BackgroundAnimation = 'orbit' | 'nebula' | 'pulse' | 'none';
 
 export interface ChatSettings {
-  tone: 'formal' | 'informal' | 'humorous';
+  tone: 'formal' | 'informal' | 'humorous' | 'normal';
   animation: BackgroundAnimation;
 }
 
@@ -48,7 +48,7 @@ export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [settings, setSettings] = useState<ChatSettings>({
-    tone: 'informal',
+    tone: 'normal',
     animation: 'orbit',
   });
   const [chatHistory, setChatHistory] = useState<ChatSession[]>([]);
