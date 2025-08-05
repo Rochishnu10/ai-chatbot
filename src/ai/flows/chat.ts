@@ -57,7 +57,7 @@ const prompt = ai.definePrompt({
   Your response:`,
   template: {
     helpers: {
-        eq: (a, b) => a === b,
+        eq: (a: any, b: any) => a === b,
     },
   },
 });
