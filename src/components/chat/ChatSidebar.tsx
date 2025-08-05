@@ -13,7 +13,7 @@ import {
   Trash2,
   Orbit,
 } from 'lucide-react';
-import type { ChatSettings, ChatSession, BackgroundAnimation } from '@/hooks/use-chat';
+import type { ChatSettings, ChatSession } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -200,22 +200,6 @@ export function ChatSidebar({
                                 <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
                                 <DropdownMenuRadioItem value='theme-sunrise'>Sunrise</DropdownMenuRadioItem>
                                 <DropdownMenuRadioItem value='theme-rose'>Rose</DropdownMenuRadioItem>
-                            </DropdownMenuRadioGroup>
-                        </DropdownMenuSubContent>
-                    </DropdownMenuPortal>
-                </DropdownMenuSub>
-                <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>
-                        <Orbit className="mr-2" />
-                        <span>Animation</span>
-                    </DropdownMenuSubTrigger>
-                    <DropdownMenuPortal>
-                        <DropdownMenuSubContent>
-                            <DropdownMenuRadioGroup value={settings.animation} onValueChange={(value) => onSettingsChange({ animation: value as BackgroundAnimation })}>
-                                <DropdownMenuRadioItem value='orbit'>Orbit</DropdownMenuRadioItem>
-                                <DropdownMenuRadioItem value='nebula'>Nebula</DropdownMenuRadioItem>
-                                <DropdownMenuRadioItem value='pulse'>Pulse</DropdownMenuRadioItem>
-                                <DropdownMenuRadioItem value='none'>None</DropdownMenuRadioItem>
                             </DropdownMenuRadioGroup>
                         </DropdownMenuSubContent>
                     </DropdownMenuPortal>

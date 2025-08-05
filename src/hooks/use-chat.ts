@@ -33,11 +33,8 @@ export interface ChatSession {
   timestamp: number;
 }
 
-export type BackgroundAnimation = 'orbit' | 'nebula' | 'pulse' | 'none';
-
 export interface ChatSettings {
   tone: 'formal' | 'informal' | 'humorous' | 'normal' | 'brutal';
-  animation: BackgroundAnimation;
 }
 
 const CHAT_HISTORY_KEY = 'nova-chat-history';
@@ -49,7 +46,6 @@ export function useChat() {
   const [isLoading, setIsLoading] = useState(false);
   const [settings, setSettings] = useState<ChatSettings>({
     tone: 'normal',
-    animation: 'orbit',
   });
   const [chatHistory, setChatHistory] = useState<ChatSession[]>([]);
   const [currentChatId, setCurrentChatId] = useState<string | null>(null);
@@ -62,7 +58,11 @@ export function useChat() {
     }
     const storedSettings = localStorage.getItem(CHAT_SETTINGS_KEY);
     if (storedSettings) {
-        setSettings(JSON.parse(storedSettings));
+        const parsedSettings = JSON.parse(storedSettings);
+        // We no longer use animation setting, so we only pull 'tone'
+        if (parsedSettings.tone) {
+            setSettings({ tone: parsedSettings.tone });
+        }
     }
   }, []);
 
@@ -91,16 +91,6 @@ export function useChat() {
   useEffect(() => {
     // Save settings whenever they change
     localStorage.setItem(CHAT_SETTINGS_KEY, JSON.stringify(settings));
-    
-    // Also update animation style on the background element
-    const backgroundElement = document.querySelector('.background-gradient');
-    if (backgroundElement) {
-        const animationName = settings.animation !== 'none' ? `anim-${settings.animation}` : 'none';
-        const animationAlternate = settings.animation === 'pulse' ? 'alternate' : 'normal';
-        (backgroundElement as HTMLElement).style.animationName = animationName;
-        (backgroundElement as HTMLElement).style.animationDirection = animationAlternate;
-    }
-
   }, [settings]);
   
 
