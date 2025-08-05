@@ -26,7 +26,7 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
   }, [messages, isLoading]);
 
   return (
-    <ScrollArea className="h-full w-full" ref={viewportRef}>
+    <ScrollArea className="h-full w-full" viewportRef={viewportRef}>
       <div className="p-4 md:p-6">
         <ChatMessage
           message={{
