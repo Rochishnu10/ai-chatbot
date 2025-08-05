@@ -57,11 +57,13 @@ export default function ChatLayout() {
       <div className="flex flex-1 flex-col bg-transparent backdrop-blur-sm h-full max-w-full overflow-hidden">
         <ChatHeader>
             <Sheet open={isMobileSidebarOpen} onOpenChange={setIsMobileSidebarOpen}>
-                <SheetTrigger asChild className="md:hidden">
-                    <Button variant="ghost" size="icon" className="rounded-full">
-                        <Menu />
-                    </Button>
-                </SheetTrigger>
+                {!isMobileSidebarOpen && (
+                  <SheetTrigger asChild className="md:hidden">
+                      <Button variant="ghost" size="icon" className="rounded-full">
+                          <Menu />
+                      </Button>
+                  </SheetTrigger>
+                )}
                 <SheetContent side="left" className="p-0 w-3/4 max-w-sm flex flex-col">
                     <SheetHeader className='p-4 pb-0'>
                       <SheetTitle className='sr-only'>Sidebar</SheetTitle>
