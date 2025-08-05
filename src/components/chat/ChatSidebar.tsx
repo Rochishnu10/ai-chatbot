@@ -95,7 +95,7 @@ export function ChatSidebar({
     >
       <div className="flex items-center justify-between p-2">
         {isSidebarOpen && <h2 className="text-lg font-headline">History</h2>}
-        <Button variant="ghost" size="icon" onClick={onSidebarToggle}>
+        <Button variant="ghost" size="icon" onClick={onSidebarToggle} className="rounded-full">
           {isSidebarOpen ? <PanelLeft /> : <PanelRight />}
         </Button>
       </div>
