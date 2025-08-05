@@ -12,6 +12,7 @@ import {
   MessageSquare,
   Trash2,
   Orbit,
+  ChevronRight,
 } from 'lucide-react';
 import type { ChatSettings, ChatSession, BackgroundAnimation } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -21,18 +22,14 @@ import { cn } from '@/lib/utils';
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuLabel,
+    DropdownMenuPortal,
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
-    DropdownMenuSeparator,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-    RadioGroup,
-    RadioGroupItem
-} from '@/components/ui/radio-group'
-import { Label } from '@/components/ui/label';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -192,28 +189,56 @@ export function ChatSidebar({
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className='flex items-center gap-2'><Palette/> Theme</DropdownMenuLabel>
-                <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                    <DropdownMenuRadioItem value='light'>Light</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='theme-sunrise'>Sunrise</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='theme-rose'>Rose</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuLabel className='flex items-center gap-2'><Orbit/> Animation</DropdownMenuLabel>
-                <DropdownMenuRadioGroup value={settings.animation} onValueChange={(value) => onSettingsChange({ animation: value as BackgroundAnimation })}>
-                    <DropdownMenuRadioItem value='orbit'>Orbit</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='nebula'>Nebula</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='pulse'>Pulse</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='none'>None</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuLabel className='flex items-center gap-2'><Settings/> Tone</DropdownMenuLabel>
-                 <DropdownMenuRadioGroup value={settings.tone} onValueChange={(value) => onSettingsChange({ tone: value as 'formal' | 'informal' | 'humorous' })}>
-                    <DropdownMenuRadioItem value='formal'>Formal</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='informal'>Informal</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='humorous'>Humorous</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
+                <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                        <Palette className="mr-2" />
+                        <span>Theme</span>
+                        <ChevronRight className="ml-auto" />
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                        <DropdownMenuSubContent>
+                            <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+                                <DropdownMenuRadioItem value='light'>Light</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='theme-sunrise'>Sunrise</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='theme-rose'>Rose</DropdownMenuRadioItem>
+                            </DropdownMenuRadioGroup>
+                        </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                </DropdownMenuSub>
+                <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                        <Orbit className="mr-2" />
+                        <span>Animation</span>
+                        <ChevronRight className="ml-auto" />
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                        <DropdownMenuSubContent>
+                            <DropdownMenuRadioGroup value={settings.animation} onValueChange={(value) => onSettingsChange({ animation: value as BackgroundAnimation })}>
+                                <DropdownMenuRadioItem value='orbit'>Orbit</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='nebula'>Nebula</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='pulse'>Pulse</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='none'>None</DropdownMenuRadioItem>
+                            </DropdownMenuRadioGroup>
+                        </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                </DropdownMenuSub>
+                <DropdownMenuSub>
+                     <DropdownMenuSubTrigger>
+                        <Settings className="mr-2" />
+                        <span>Tone</span>
+                        <ChevronRight className="ml-auto" />
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                        <DropdownMenuSubContent>
+                            <DropdownMenuRadioGroup value={settings.tone} onValueChange={(value) => onSettingsChange({ tone: value as 'formal' | 'informal' | 'humorous' })}>
+                                <DropdownMenuRadioItem value='formal'>Formal</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='informal'>Informal</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='humorous'>Humorous</DropdownMenuRadioItem>
+                            </DropdownMenuRadioGroup>
+                        </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                </DropdownMenuSub>
             </DropdownMenuContent>
         </DropdownMenu>
       </div>
