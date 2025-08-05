@@ -227,11 +227,12 @@ export function ChatSidebar({
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                         <DropdownMenuSubContent>
-                            <DropdownMenuRadioGroup value={settings.tone} onValueChange={(value) => onSettingsChange({ tone: value as 'formal' | 'informal' | 'humorous' | 'normal' })}>
+                            <DropdownMenuRadioGroup value={settings.tone} onValueChange={(value) => onSettingsChange({ tone: value as 'formal' | 'informal' | 'humorous' | 'normal' | 'brutal' })}>
                                 <DropdownMenuRadioItem value='normal'>Normal</DropdownMenuRadioItem>
                                 <DropdownMenuRadioItem value='formal'>Formal</DropdownMenuRadioItem>
                                 <DropdownMenuRadioItem value='informal'>Informal</DropdownMenuRadioItem>
                                 <DropdownMenuRadioItem value='humorous'>Humorous</DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value='brutal'>Brutal</DropdownMenuRadioItem>
                             </DropdownMenuRadioGroup>
                         </DropdownMenuSubContent>
                     </DropdownMenuPortal>

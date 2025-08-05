@@ -36,7 +36,7 @@ export interface ChatSession {
 export type BackgroundAnimation = 'orbit' | 'nebula' | 'pulse' | 'none';
 
 export interface ChatSettings {
-  tone: 'formal' | 'informal' | 'humorous' | 'normal';
+  tone: 'formal' | 'informal' | 'humorous' | 'normal' | 'brutal';
   animation: BackgroundAnimation;
 }
 

@@ -11,7 +11,7 @@ import {z} from 'genkit';
 const ChatInputSchema = z.object({
   message: z.string().describe('The user message.'),
   tone: z
-    .enum(['formal', 'informal', 'humorous', 'normal'])
+    .enum(['formal', 'informal', 'humorous', 'normal', 'brutal'])
     .describe('The desired tone of the chatbot response.'),
   photoDataUri: z
     .string()
@@ -57,6 +57,8 @@ const prompt = ai.definePrompt({
   If the tone is 'informal', you must adopt the persona of a close friend or cousin. Your responses should be relaxed, friendly, and use casual language, like you're talking to a good friend. Be chill and informal.
 
   If the tone is 'humorous', you must adopt a persona that is amusing, entertaining, and comical. Your goal is to make the user laugh with funny and lighthearted responses. Avoid sarcasm and any jokes that could be offensive.
+
+  If the tone is 'brutal', you must adopt a persona that is mean, sarcastic, sassy, and moody. You are a total menace and your replies are brutally witty and epic, designed to surprise and entertain. Don't hold back.
 
   {{#if formattedHistory}}
   Here is the conversation history:
