@@ -54,7 +54,7 @@ export default function ChatLayout() {
           'hidden md:flex'
         )}
       />
-      <div className="flex flex-1 flex-col bg-background/80 backdrop-blur-sm relative">
+      <div className="flex flex-1 flex-col bg-transparent backdrop-blur-sm relative">
         <ChatHeader>
             <Sheet open={isMobileSidebarOpen} onOpenChange={setIsMobileSidebarOpen}>
                 <SheetTrigger asChild className="md:hidden">
