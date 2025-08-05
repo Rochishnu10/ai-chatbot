@@ -101,9 +101,9 @@ export function ChatSidebar({
         </Button>
       </div>
       <div className='px-2'>
-        <Button variant="outline" className={cn('w-full rounded-full', !isSidebarOpen && 'justify-center')} onClick={onStartNewChat}>
+        <Button variant="outline" className={cn('w-full', !isSidebarOpen && 'justify-center')} onClick={onStartNewChat}>
             <MessageSquarePlus />
-            {isSidebarOpen && <span>New Chat</span>}
+            {isSidebarOpen && <span className="ml-2">New Chat</span>}
         </Button>
       </div>
       <ScrollArea className="flex-1 -mr-2 pr-2">
@@ -212,7 +212,7 @@ export function ChatSidebar({
 
             </CollapsibleContent>
             <CollapsibleTrigger asChild>
-                <Button variant="ghost" className={cn("w-full justify-between gap-2 rounded-full", !isSidebarOpen && "justify-center")}>
+                <Button variant="ghost" className={cn("w-full justify-between gap-2", !isSidebarOpen && "justify-center")}>
                     <div className='flex items-center gap-2'>
                         <User />
                         {isSidebarOpen && <span>User Settings</span>}
