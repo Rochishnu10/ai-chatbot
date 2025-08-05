@@ -58,7 +58,7 @@ export default function ChatLayout() {
         <ChatHeader>
             <Sheet open={isMobileSidebarOpen} onOpenChange={setIsMobileSidebarOpen}>
                 <SheetTrigger asChild className="md:hidden">
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" className="rounded-full">
                         <Menu />
                     </Button>
                 </SheetTrigger>
