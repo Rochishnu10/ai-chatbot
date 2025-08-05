@@ -109,6 +109,21 @@ export function useChat() {
     startNewChat();
   };
 
+  const deleteChatSession = (id: string) => {
+    setChatHistory(prev => {
+      const newHistory = prev.filter(session => session.id !== id);
+      if (currentChatId === id) {
+        if (newHistory.length > 0) {
+          const mostRecentChat = [...newHistory].sort((a, b) => b.timestamp - a.timestamp)[0];
+          loadChat(mostRecentChat.id);
+        } else {
+          startNewChat();
+        }
+      }
+      return newHistory;
+    });
+  };
+
   const updateChatHistory = (chatId: string, newMessages: Message[], userMessage: Message) => {
     setChatHistory(prev => {
         const existingChatIndex = prev.findIndex(c => c.id === chatId);
@@ -194,5 +209,6 @@ export function useChat() {
     loadChat,
     startNewChat,
     clearChatHistory,
+    deleteChatSession,
   };
 }

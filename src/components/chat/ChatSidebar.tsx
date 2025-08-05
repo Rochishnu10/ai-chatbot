@@ -10,6 +10,7 @@ import {
   Trash,
   User,
   MessageSquare,
+  Trash2,
 } from 'lucide-react';
 import type { ChatSettings, ChatSession } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -53,6 +54,7 @@ interface ChatSidebarProps {
   onStartNewChat: () => void;
   onLoadChat: (id: string) => void;
   onClearHistory: () => void;
+  onDeleteSession: (id: string) => void;
 }
 
 export function ChatSidebar({
@@ -66,6 +68,7 @@ export function ChatSidebar({
   onStartNewChat,
   onLoadChat,
   onClearHistory,
+  onDeleteSession,
 }: ChatSidebarProps) {
   const { theme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
@@ -79,6 +82,11 @@ export function ChatSidebar({
   }
 
   const sortedHistory = [...chatHistory].sort((a, b) => b.timestamp - a.timestamp);
+
+  const handleDelete = (e: React.MouseEvent, sessionId: string) => {
+    e.stopPropagation(); // Prevent the chat from loading when deleting
+    onDeleteSession(sessionId);
+  }
 
   return (
     <aside
@@ -104,15 +112,24 @@ export function ChatSidebar({
           {isSidebarOpen ? (
             sortedHistory.length > 0 ? (
                 sortedHistory.map((session) => (
-                <Button
-                  key={session.id}
-                  variant={session.id === currentChatId ? 'secondary' : 'ghost'}
-                  className="w-full justify-start gap-2 truncate"
-                  onClick={() => onLoadChat(session.id)}
-                >
-                  <MessageSquare className="h-4 w-4" />
-                  <span className='truncate'>{session.title}</span>
-                </Button>
+                <div key={session.id} className="relative group">
+                  <Button
+                    variant={session.id === currentChatId ? 'secondary' : 'ghost'}
+                    className="w-full justify-start gap-2 truncate"
+                    onClick={() => onLoadChat(session.id)}
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    <span className='truncate'>{session.title}</span>
+                  </Button>
+                  <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 rounded-full opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                      onClick={(e) => handleDelete(e, session.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
               ))
             ) : (
               <p className="text-sm text-muted-foreground px-2">
@@ -136,7 +153,7 @@ export function ChatSidebar({
                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>
                   This will permanently delete your chat history. This action cannot be undone.
-                </AlertDialogDescription>
+                </Description>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>

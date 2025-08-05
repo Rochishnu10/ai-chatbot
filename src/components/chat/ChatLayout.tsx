@@ -29,6 +29,7 @@ export default function ChatLayout() {
     startNewChat,
     loadChat,
     clearChatHistory,
+    deleteChatSession,
     currentChatId,
   } = useChat();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -46,6 +47,7 @@ export default function ChatLayout() {
         onStartNewChat={startNewChat}
         onLoadChat={loadChat}
         onClearHistory={clearChatHistory}
+        onDeleteSession={deleteChatSession}
         className={cn(
           'transition-all duration-300 ease-in-out',
           isSidebarOpen ? 'w-full md:w-80' : 'w-0 md:w-16',
@@ -83,6 +85,10 @@ export default function ChatLayout() {
                           setIsMobileSidebarOpen(false);
                         }}
                         onClearHistory={clearChatHistory}
+                        onDeleteSession={(id) => {
+                          deleteChatSession(id);
+                          setIsMobileSidebarOpen(false);
+                        }}
                         className='w-full border-none'
                     />
                 </SheetContent>
