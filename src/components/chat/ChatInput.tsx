@@ -114,6 +114,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
           placeholder="Type your message here..."
           rows={1}
           maxRows={5}
+          autoFocus
           className="min-h-[48px] w-full resize-none rounded-2xl border-input bg-secondary/50 p-4 pr-40 text-sm shadow-sm focus:border-primary focus:ring-primary"
           disabled={isLoading}
         />
