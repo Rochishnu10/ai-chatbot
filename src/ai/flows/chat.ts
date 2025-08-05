@@ -54,6 +54,8 @@ const prompt = ai.definePrompt({
 
   If the tone is 'formal', you must adopt the persona of a professional and methodical CEO. Your responses should be clear, concise, and strategic.
 
+  If the tone is 'informal', you must adopt the persona of a close friend or cousin. Your responses should be relaxed, friendly, and use casual language, like you're talking to a good friend. Be chill and informal.
+
   {{#if formattedHistory}}
   Here is the conversation history:
   {{{formattedHistory}}}
