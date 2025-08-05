@@ -62,7 +62,7 @@ export default function ChatLayout() {
                         <Menu />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="p-0 w-1/3 max-w-xs flex flex-col">
+                <SheetContent side="left" className="p-0 w-2/5 max-w-xs flex flex-col">
                     <SheetHeader className='p-4 pb-0'>
                       <SheetTitle className='sr-only'>Sidebar</SheetTitle>
                       <SheetDescription className='sr-only'>
