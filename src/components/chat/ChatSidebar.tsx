@@ -77,16 +77,17 @@ export function ChatSidebar({
     setIsMounted(true);
   }, []);
 
+  const handleDelete = (e: React.MouseEvent, sessionId: string) => {
+    e.stopPropagation(); // Prevent the chat from loading when deleting
+    onDeleteSession(sessionId);
+  }
+
   if (!isMounted) {
     return null;
   }
 
   const sortedHistory = [...chatHistory].sort((a, b) => b.timestamp - a.timestamp);
 
-  const handleDelete = (e: React.MouseEvent, sessionId: string) => {
-    e.stopPropagation(); // Prevent the chat from loading when deleting
-    onDeleteSession(sessionId);
-  }
 
   return (
     <aside
@@ -153,7 +154,7 @@ export function ChatSidebar({
                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>
                   This will permanently delete your chat history. This action cannot be undone.
-                </Description>
+                </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
