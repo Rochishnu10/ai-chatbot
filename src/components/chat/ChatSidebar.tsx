@@ -155,7 +155,7 @@ export function ChatSidebar({
           ) : null}
         </div>
       </ScrollArea>
-      <div className="mt-auto p-2 space-y-2 pb-4">
+      <div className="mt-auto p-2 space-y-2 mb-4">
       {isSidebarOpen && chatHistory.length > 0 && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
