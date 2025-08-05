@@ -19,10 +19,15 @@ const ChatInputSchema = z.object({
     .describe(
       "An optional photo, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'"
     ),
-  history: z.array(z.object({
-    role: z.enum(['user', 'assistant']),
-    content: z.string(),
-  })).optional().describe('The previous messages in the conversation.'),
+  history: z
+    .array(
+      z.object({
+        role: z.enum(['user', 'assistant']),
+        content: z.string(),
+      })
+    )
+    .optional()
+    .describe('The previous messages in the conversation.'),
 });
 export type ChatInput = z.infer<typeof ChatInputSchema>;
 
@@ -42,6 +47,13 @@ const prompt = ai.definePrompt({
   prompt: `You are a helpful AI assistant named Nova. Your persona is futuristic and slightly witty.
   Adjust your response to match the desired tone: {{{tone}}}.
 
+  {{#if history}}
+  Here is the conversation history:
+  {{#each history}}
+  {{#if (eq role "user")}}User: {{content}}{{/if}}{{#if (eq role "assistant")}}Nova: {{content}}{{/if}}
+  {{/each}}
+  {{/if}}
+
   {{#if photoDataUri}}
   The user has provided an image. Analyze the image and use it to inform your response.
   Image: {{media url=photoDataUri}}
@@ -49,6 +61,11 @@ const prompt = ai.definePrompt({
 
   User's message: {{{message}}}
   Your response:`,
+  custom: {
+    helpers: {
+      eq: (a: any, b: any) => a === b,
+    },
+  },
 });
 
 const chatFlow = ai.defineFlow(
