@@ -36,7 +36,7 @@ export default function ChatLayout() {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen w-full bg-transparent">
+    <div className="flex h-[100dvh] w-full bg-transparent">
       <ChatSidebar
         isSidebarOpen={isSidebarOpen}
         onSidebarToggle={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -54,7 +54,7 @@ export default function ChatLayout() {
           'hidden md:flex'
         )}
       />
-      <div className="flex flex-1 flex-col bg-transparent backdrop-blur-sm h-full">
+      <div className="flex flex-1 flex-col bg-transparent backdrop-blur-sm h-full max-w-full overflow-hidden">
         <ChatHeader>
             <Sheet open={isMobileSidebarOpen} onOpenChange={setIsMobileSidebarOpen}>
                 <SheetTrigger asChild className="md:hidden">
@@ -62,7 +62,7 @@ export default function ChatLayout() {
                         <Menu />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="p-0 w-2/5 max-w-xs flex flex-col">
+                <SheetContent side="left" className="p-0 w-3/4 max-w-sm flex flex-col">
                     <SheetHeader className='p-4 pb-0'>
                       <SheetTitle className='sr-only'>Sidebar</SheetTitle>
                       <SheetDescription className='sr-only'>
