@@ -44,8 +44,8 @@ const prompt = ai.definePrompt({
   
   This is the conversation history:
   {{#each history}}
-  {{#if_eq this.role "user"}}User: {{{this.content}}}{{/if_eq}}
-  {{#if_eq this.role "assistant"}}Nova: {{{this.content}}}{{/if_eq}}
+    {{#if (eq this.role "user")}}User: {{{this.content}}}{{/if}}
+    {{#if (eq this.role "assistant")}}Nova: {{{this.content}}}{{/if}}
   {{/each}}
 
   {{#if photoDataUri}}
@@ -57,13 +57,7 @@ const prompt = ai.definePrompt({
   Your response:`,
   template: {
     helpers: {
-      if_eq: (a, b, options) => {
-        if (a === b) {
-          return options.fn(this);
-        } else {
-          return options.inverse(this);
-        }
-      },
+        eq: (a, b) => a === b,
     },
   },
 });
