@@ -224,7 +224,7 @@ export function ChatSidebar({
         </DropdownMenu>
       </div>
       {isSidebarOpen && (
-        <div className="p-2 text-center text-xs text-muted-foreground">
+        <div className="py-1 px-2 text-center text-xs text-muted-foreground">
           <p className="font-headline">&copy; This app is made by Rochishnu Pyne</p>
         </div>
       )}
