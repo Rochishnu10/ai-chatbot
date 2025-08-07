@@ -155,7 +155,7 @@ export function ChatSidebar({
           ) : null}
         </div>
       </ScrollArea>
-      <div className="mt-auto p-2 space-y-2 mb-4">
+      <div className="mt-auto p-2 space-y-2">
       {isSidebarOpen && chatHistory.length > 0 && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -224,6 +224,11 @@ export function ChatSidebar({
             </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      {isSidebarOpen && (
+        <div className="p-2 text-center text-xs text-muted-foreground">
+          <p>This app is made by Rochishnu Pyne, copyright and all rights reserved.</p>
+        </div>
+      )}
     </aside>
   );
 }
