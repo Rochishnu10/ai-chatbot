@@ -11,7 +11,6 @@ import {
   User,
   MessageSquare,
   Trash2,
-  Orbit,
 } from 'lucide-react';
 import type { ChatSettings, ChatSession } from '@/hooks/use-chat';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -226,7 +225,7 @@ export function ChatSidebar({
       </div>
       {isSidebarOpen && (
         <div className="p-2 text-center text-xs text-muted-foreground">
-          <p>This app is made by Rochishnu Pyne, copyright and all rights reserved.</p>
+          <p className="font-headline">&copy; This app is made by Rochishnu Pyne</p>
         </div>
       )}
     </aside>
